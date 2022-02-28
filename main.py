@@ -93,7 +93,6 @@ async def gif(ctx, searchr=""):
         data = json.loads(response.read())
     embedl = discord.Embed(colour=discord.Colour.blue())
     embedl.set_image(url=data['data']['images']['original']['url'])
-    print(data)
     await ctx.send(embed=embedl)
 
 
