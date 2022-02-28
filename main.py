@@ -305,9 +305,5 @@ async def avatar_error(ctx, error):
         await ctx.send("user can't be found!")
 
 
-@bot.command()
-async def translate(ctx,message):
-    url = request.urlopen(f"https://translate.google.com/?sl=en&tl=tr&text={message}&op=translate")
-    print(url)
 
 bot.run("OTE0MTMxNzgzMTE5OTMzNDYw.YaIlkA.TKE2pQ76xOgbeolpawO_GOToWWU")
