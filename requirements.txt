@@ -4,3 +4,6 @@ pandas
 dnspython==1.16.0
 async-timeout==3.0.1
 google-api-python-client
+async-timeout
+httplib2
+requests
