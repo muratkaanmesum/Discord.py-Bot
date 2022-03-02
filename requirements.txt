@@ -5,8 +5,7 @@ cachetools
 certifi                   
 chardet                     
 charset-normalizer      
-discord                
-discord.py               
+https://github.com/Rapptz/discord.py               
 google-api-core         
 google-api-python-client 
 google-auth             
