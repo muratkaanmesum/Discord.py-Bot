@@ -308,20 +308,43 @@ async def avatar_error(ctx, error):
 async def tasks(ctx):
     with open("Todo.txt") as file:
         filelist = file.readlines()
-        newstring =""
+        newstring = ""
+        index = 1
         for string in filelist:
-            newstring = newstring+string
+            newstring = newstring + str(index) + ". " + string
+            index += 1
 
-        embed = discord.Embed(title = "Things to be done",description=newstring)
-        await ctx.send(embed= embed)
+        embed = discord.Embed(title="Things to be done", description=newstring)
+        await ctx.send(embed=embed)
 
 
 @bot.command()
-async def addneed(ctx,*args):
-    with open("Todo.txt","a")as file:
+async def addtask(ctx, *args):
+    with open("Todo.txt", "a") as file:
         task = ""
         for arg in args:
-            task += arg
+            task += arg+" "
 
-        file.writelines("\n"+task)
+        file.write("\n" + task)
+        await ctx.send("Task added.")
+
+
+@bot.command()
+async def removetask(ctx, message):
+    with open("Todo.txt") as file:
+        list = file.readlines()
+    if not message.isnumeric():
+        await ctx.send("Enter a valid integer! ")
+        return
+    if int(message) > len(list) or int(message) < 1:
+        await ctx.send(f"Enter Between 1 to {len(list)}")
+        return
+    list.pop(int(message) - 1)
+    with open("Todo.txt", "w") as f:
+        print(list)
+        for task in list:
+            f.writelines(task)
+        await ctx.send("Task is deleted.")
+
+
 bot.run("OTE0MTMxNzgzMTE5OTMzNDYw.YaIlkA.TKE2pQ76xOgbeolpawO_GOToWWU")
