@@ -304,5 +304,24 @@ async def avatar_error(ctx, error):
         await ctx.send("user can't be found!")
 
 
+@bot.command()
+async def tasks(ctx):
+    with open("Todo.txt") as file:
+        filelist = file.readlines()
+        newstring =""
+        for string in filelist:
+            newstring = newstring+string
 
+        embed = discord.Embed(title = "Things to be done",description=newstring)
+        await ctx.send(embed= embed)
+
+
+@bot.command()
+async def addneed(ctx,*args):
+    with open("Todo.txt","a")as file:
+        task = ""
+        for arg in args:
+            task += arg
+
+        file.writelines("\n"+task)
 bot.run("OTE0MTMxNzgzMTE5OTMzNDYw.YaIlkA.TKE2pQ76xOgbeolpawO_GOToWWU")
