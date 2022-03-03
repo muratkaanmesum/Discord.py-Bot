@@ -311,6 +311,7 @@ async def tasks(ctx):
         newstring = ""
         index = 1
         for string in filelist:
+            print(string)
             newstring = newstring + str(index) + ". " + string
             index += 1
 
@@ -325,7 +326,7 @@ async def addtask(ctx, *args):
         for arg in args:
             task += arg+" "
 
-        file.write("\n" + task)
+        file.write(task)
         await ctx.send("Task added.")
 
 
