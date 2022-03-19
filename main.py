@@ -311,7 +311,6 @@ async def tasks(ctx):
         newstring = ""
         index = 1
         for string in filelist:
-            print(string)
             newstring = newstring + str(index) + ". " + string
             index += 1
 
@@ -324,14 +323,33 @@ async def addtask(ctx, *args):
     with open("Todo.txt", "a") as file:
         task = ""
         for arg in args:
-            task += arg+" "
+            task += arg + " "
 
         file.write(task)
         await ctx.send("Task added.")
 
 
-@bot.command()
-async def removetask(ctx, message):
+@bot.command(hidden=True)
+async def taketask(ctx, message):
+    with open("Todo.txt") as file:
+        list = file.readlines()
+    if not message.isnumeric():
+        await ctx.send("Enter a valid integer! ")
+        return
+    if int(message) > len(list) or int(message) < 1:
+        await ctx.send(f"Enter Between 1 to {len(list)}")
+        return
+    list[int(message) - 1].rstrip("\n")
+    task = f" ~~{list[int(message) - 1][:-1]}~~ -- Taken by **{ctx.author.display_name}**\n"
+
+    list[int(message) - 1] = task
+    with open("Todo.txt", "w") as file:
+        file.writelines(list)
+    await ctx.send("Task is taken!")
+
+
+@bot.command(hidden=True)
+async def finishtask(ctx, message):
     with open("Todo.txt") as file:
         list = file.readlines()
     if not message.isnumeric():
@@ -342,9 +360,7 @@ async def removetask(ctx, message):
         return
     list.pop(int(message) - 1)
     with open("Todo.txt", "w") as f:
-        print(list)
-        for task in list:
-            f.writelines(task)
+        f.writelines(list)
         await ctx.send("Task is deleted.")
 
 

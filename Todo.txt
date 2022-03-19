@@ -1,3 +1,8 @@
-Make the research
-enough
-Make the game 
+Attacking
+Enemy base classes
+Enemy movement
+Gold implementation
+implementing the health mechanic
+doing damage to the enemies
+making the main menu scene
+adding shop to the main menu
