@@ -64,7 +64,7 @@ async def hello(ctx):
         await ctx.send("Hello")
 
 
-@bot.command(brief="this searches the google images and gets a random photo from first 10 photos.")
+@bot.command(brief="this searches the google images and gets a random photo from first 10 photos.", Hidden=True)
 async def search(ctx, searchr=""):
     if searchr == "":
         await ctx.send("you need to write the search key")
@@ -185,7 +185,7 @@ async def unmute_error(ctx, error):
 
 # endregion
 
-@bot.command(name="start", brief="starts a counter")
+@bot.command(name="start", brief="starts a counter", hidden=True)
 async def counter(ctx):
     count.start()
     await ctx.send("counter started!")
@@ -205,7 +205,7 @@ async def count():
         _index = 0
 
 
-@bot.command(brief="stops the counter and returns the passed time")
+@bot.command(hidden=True)
 async def stop(ctx):
     count.cancel()
     global _index
@@ -215,7 +215,7 @@ async def stop(ctx):
     _minutes = 0
 
 
-@bot.command(brief="Ahmet hocamızın dersinin özeti")
+@bot.command(hidden=True)
 async def ders(ctx):
     embed = discord.Embed(color=Colour.random())
     embed.description = "Identity and access managment pdf [click]" \
@@ -275,7 +275,7 @@ async def mentionall(ctx, *args):
         await ctx.send(mentionstring)
 
 
-@bot.command()
+@bot.command(hidden=True)
 async def photo(ctx):
     url = "https://meme-api.herokuapp.com/gimme"
     with request.urlopen("".join((url, "/1"))) as response:
@@ -286,7 +286,7 @@ async def photo(ctx):
     await ctx.send(embed=embed)
 
 
-@bot.command()
+@bot.command(hidden=True)
 async def avatar(ctx, user: discord.Member):
     if user not in ctx.guild.members:
         return
@@ -304,7 +304,7 @@ async def avatar_error(ctx, error):
         await ctx.send("user can't be found!")
 
 
-@bot.command()
+@bot.command(brief="Shows the project tasks")
 async def tasks(ctx):
     with open("Todo.txt") as file:
         filelist = file.readlines()
@@ -318,18 +318,19 @@ async def tasks(ctx):
         await ctx.send(embed=embed)
 
 
-@bot.command()
+@bot.command(brief="Add a task to the end of the list")
 async def addtask(ctx, *args):
     with open("Todo.txt", "a") as file:
         task = ""
         for arg in args:
             task += arg + " "
 
-        file.write(task+"\n")
+        file.write(task + "\n")
+        await ctx.channel.purge(limit=1)
         await ctx.send("Task added.")
 
 
-@bot.command(hidden=True)
+@bot.command(brief="Take a task to do on the project")
 async def taketask(ctx, message):
     with open("Todo.txt") as file:
         list = file.readlines()
@@ -348,7 +349,7 @@ async def taketask(ctx, message):
     await ctx.send("Task is taken!")
 
 
-@bot.command(hidden=True)
+@bot.command(brief="Finish a taken task and delete it from the list")
 async def finishtask(ctx, message):
     with open("Todo.txt") as file:
         list = file.readlines()
@@ -362,12 +363,12 @@ async def finishtask(ctx, message):
         print(list[int(message) - 1].startswith("~~"))
         await ctx.send("You can only finish the tasks that are taken!")
         return
-    member = list[int(message) -1].split("by")[1].replace("**", "")[:-1].lstrip()
+    member = list[int(message) - 1].split("by")[1].replace("**", "")[:-1].lstrip()
     if ctx.author.display_name != member:
         await ctx.send("You didn't take this task!")
         return
     list.pop(int(message) - 1)
-    with open("Todo.txt","w") as file:
+    with open("Todo.txt", "w") as file:
         file.writelines(list)
         await ctx.send("Task is finished!")
 

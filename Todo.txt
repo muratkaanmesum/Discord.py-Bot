@@ -1,5 +1,7 @@
 Enemy base classes
+basic enemy behaviour
 Enemy movement
+Player attack mechanic
 Gold implementation
 implementing the health mechanic
 doing damage to the enemies
