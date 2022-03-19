@@ -1,4 +1,3 @@
-Attacking
 Enemy base classes
 Enemy movement
 Gold implementation

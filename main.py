@@ -325,7 +325,7 @@ async def addtask(ctx, *args):
         for arg in args:
             task += arg + " "
 
-        file.write(task)
+        file.write(task+"\n")
         await ctx.send("Task added.")
 
 
@@ -340,7 +340,7 @@ async def taketask(ctx, message):
         await ctx.send(f"Enter Between 1 to {len(list)}")
         return
     list[int(message) - 1].rstrip("\n")
-    task = f" ~~{list[int(message) - 1][:-1]}~~ -- Taken by **{ctx.author.display_name}**\n"
+    task = f"~~{list[int(message) - 1][:-1]}~~ -- Taken by **{ctx.author.display_name}**\n"
 
     list[int(message) - 1] = task
     with open("Todo.txt", "w") as file:
@@ -358,10 +358,18 @@ async def finishtask(ctx, message):
     if int(message) > len(list) or int(message) < 1:
         await ctx.send(f"Enter Between 1 to {len(list)}")
         return
+    if not list[int(message) - 1].startswith('~'):
+        print(list[int(message) - 1].startswith("~~"))
+        await ctx.send("You can only finish the tasks that are taken!")
+        return
+    member = list[int(message) -1].split("by")[1].replace("**", "")[:-1].lstrip()
+    if ctx.author.display_name != member:
+        await ctx.send("You didn't take this task!")
+        return
     list.pop(int(message) - 1)
-    with open("Todo.txt", "w") as f:
-        f.writelines(list)
-        await ctx.send("Task is deleted.")
+    with open("Todo.txt","w") as file:
+        file.writelines(list)
+        await ctx.send("Task is finished!")
 
 
 bot.run("OTE0MTMxNzgzMTE5OTMzNDYw.YaIlkA.TKE2pQ76xOgbeolpawO_GOToWWU")
