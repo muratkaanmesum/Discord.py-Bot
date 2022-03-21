@@ -340,6 +340,12 @@ async def taketask(ctx, message):
     if int(message) > len(list) or int(message) < 1:
         await ctx.send(f"Enter Between 1 to {len(list)}")
         return
+    for member in ctx.guild.members:
+        name = member.display_name.rstrip("#")
+        if name in list[int(message) - 1]:
+            await ctx.send("This task is already taken by someone!")
+            return
+
     list[int(message) - 1].rstrip("\n")
     task = f"~~{list[int(message) - 1][:-1]}~~ -- Taken by **{ctx.author.display_name}**\n"
 
