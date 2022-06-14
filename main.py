@@ -39,13 +39,6 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game("!Help"))
     print("bot is logged in")
 
-
-@bot.event
-async def on_member_update(before, after):
-    if after.id == 870587768152133632 and after.status.value == "online" and before.status.value == "offline":
-        await after.send("ooo online olmuşsun aq çocu nihahahahaha")
-
-
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(917385740667715615)
