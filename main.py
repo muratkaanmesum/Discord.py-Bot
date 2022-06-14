@@ -379,4 +379,4 @@ async def finishtask(ctx, message):
         await ctx.send("Task is finished!")
 
 
-bot.run("OTE0MTMxNzgzMTE5OTMzNDYw.YaIlkA.TKE2pQ76xOgbeolpawO_GOToWWU")
+bot.run("Discord's bot id goes here, all of them is different")
